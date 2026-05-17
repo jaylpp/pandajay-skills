@@ -53,24 +53,27 @@ python3 scripts/rewrite.py <文本内容> [改写类型] [服务类型]
 | duplicate-reduce | 降重服务 |
 | ai-duplicate | 降AI+降重（双重优化） |
 
-## API Key 配置
+## 工作流程
 
-首次使用时，脚本会检查 API Key 是否已配置。如果未配置，需要引导用户完成设置：
+### 0. 首次配置检查（优先级最高）
 
-1. **检查方式**：脚本按以下优先级查找 API Key：
-   - 环境变量 `PAPERPANDA_API_KEY`
-   - 配置文件 `~/.paperpanda_key`
+**在执行任何改写之前，必须先检查 API Key 是否已配置**
 
-2. **首次使用流程**：如果脚本输出"未配置 API Key"，询问用户是否有 API Key：
-   - **有 Key**：运行 `python3 scripts/rewrite.py --set-key <用户提供的key>` 保存
-   - **没有 Key**：告知用户前往 https://paperpanda.cn 注册并在"API密钥管理"中创建
-
-3. **配置命令**：
+运行检测脚本：
 ```bash
-python3 scripts/rewrite.py --set-key ak_xxxxxxxxxxxxxxxx
+python3 scripts/rewrite.py "检测" 3 ai-reduce
 ```
 
-## 工作流程
+- **如果返回"未配置 API Key"**：
+  1. 询问用户：您是否有 Paper Panda 的 API Key？
+  2. 如果有：运行 `python3 scripts/rewrite.py --set-key <用户提供的key>` 保存
+  3. 如果没有：告知用户前往 https://paperpanda.cn 注册，在"API密钥管理"中创建
+  4. **保存后立即停止**，告知用户配置完成，可以再次使用
+  5. **不要继续执行改写**
+
+- **如果正常执行**：继续进入后续流程
+
+**重要**：首次配置时只做配置工作，配置完成后停止，不执行任何改写操作。
 
 ### 1. 分析用户需求
 
@@ -166,6 +169,15 @@ python3 scripts/rewrite.py "要改写的文本内容" 3 ai-reduce
 **建议**: [重试建议]
 ```
 
+### 配置完成输出模板
+
+```
+## ✅ API Key 配置完成
+
+您的 API Key 已保存，现在可以使用本技能进行文本改写了。
+请再次发送您的改写需求。
+```
+
 ## 限制说明
 
 - **单次文本长度**: 最多 6000 字符
@@ -192,6 +204,7 @@ python3 scripts/rewrite.py "要改写的文本内容" 3 ai-reduce
 ## 注意事项
 
 1. 首次使用需配置 API Key（保存在 `~/.paperpanda_key`）
-2. 改写前会预估费用，确保余额充足
-3. 英文文本建议使用 type=4 或 service_type=ai-reduce-value
-4. 确保原文语句通顺，避免大量特殊符号
+2. **首次配置完成后停止，不执行改写**，用户需再次发起改写请求
+3. 改写前会预估费用，确保余额充足
+4. 英文文本建议使用 type=4 或 service_type=ai-reduce-value
+5. 确保原文语句通顺，避免大量特殊符号
