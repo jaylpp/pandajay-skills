@@ -18,6 +18,7 @@
 | `dev-doc-match-resource` | 基于开发文档分析匹配当前开发方案的资源配置。结合能力资源矩阵，匹配合适的开发人员、测试人员及其能力等级。 | 依赖 `references/employee-data.md` |
 | `req-to-hours-estimate` | 基于用户需求生成售前工时评估报告，包含需求分析、功能范围、技术方案、资源配置、工时评估和报价建议。 | 调用 `req-to-dev-doc` 和 `dev-doc-match-resource` skill，依赖 `references/example-report.md` 和 `references/generate_word_report.py` |
 | `hotspot-leverage` | 分析热点事件并生成可落地的引流和变现策略，帮助普通人把热点转化为自己业务的流量。支持闪电档/标准档/精品档三档方案，输出具体行动清单。 | 自动保存用户业务档案到 `user-profile.md`，需联网搜索热点信息 |
+| `pandajay-aigc` | 降低文本AIGC检测率。使用 Paper Panda API 对文本进行智能改写，支持知网、维普、通用等11种改写类型，可降AI率、降重率或双重优化。 | 依赖 Paper Panda API |
 
 ## 如何使用
 
