@@ -243,6 +243,29 @@ def detect_platform(text: str) -> Tuple[int, str]:
 
 
 if __name__ == "__main__":
+    # 显示帮助信息
+    if len(sys.argv) >= 2 and sys.argv[1] in ["--help", "-h"]:
+        print("📝 Paper Panda AIGC改写工具")
+        print()
+        print("用法:")
+        print("  python rewrite.py <文本内容> [改写类型] [服务类型]")
+        print("  python rewrite.py --set-key <your_api_key>    # 配置API Key")
+        print("  python rewrite.py --help                     # 显示帮助")
+        print()
+        print("改写类型:")
+        for name, rt_id in REWRITE_TYPES.items():
+            print(f"  {rt_id}: {name}")
+        print()
+        print("服务类型:")
+        for st, desc in SERVICE_TYPES.items():
+            print(f"  {st}: {desc}")
+        print()
+        print("获取API Key:")
+        print("  1. 访问 https://paperpanda.cn 注册账号")
+        print("  2. 登录后进入「API密钥管理」创建新密钥")
+        print("  3. 运行: python rewrite.py --set-key <你的密钥>")
+        sys.exit(0)
+
     # 设置API Key
     if len(sys.argv) >= 2 and sys.argv[1] == "--set-key":
         if len(sys.argv) < 3:
